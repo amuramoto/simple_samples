@@ -1,0 +1,18 @@
+var request = require("request");
+
+module.exports = {
+	getProducts: getProducts
+}
+
+function getProducts (req, res) {
+	var apikey = 'YOUR SEARS API KEY'
+	var keyword = req.swagger.params.keyword.value;
+	
+	request('http://api.developer.sears.com/v2.1/products/search/Sears/json/keyword/'+ keyword +'?apikey=' + apikey, function (error, response, body) {
+		if (error) {
+			res.send(error);
+		} else {
+			res.json(JSON.parse(body));
+		}
+	})
+}

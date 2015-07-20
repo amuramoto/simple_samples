@@ -1,0 +1,23 @@
+/products:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: products
+    x-a127-apply: {}
+    parameters:
+      - name: keyword
+        in: query
+        type: string
+    get:
+      description: Returns a list of washers
+      # used as the method name of the controller
+      operationId: getProducts
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/HelloWorldResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"

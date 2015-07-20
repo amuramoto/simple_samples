@@ -1,0 +1,23 @@
+/restaurants:
+  # binds a127 app logic to a route
+  x-swagger-router-controller: restaurants
+  x-a127-apply: {}
+  get:
+    description: Returns a list of restaurants
+    # used as the method name of the controller
+    operationId: getRestaurants
+    responses:
+      "200":
+        description: Success
+        schema:
+          type: object
+          required:
+            - entities
+          properties:
+            entities:
+              type: array
+      # responses may fall through to errors
+      default:
+        description: Error
+        schema:
+          $ref: "#/definitions/ErrorResponse"

@@ -1,4 +1,4 @@
-angular.module('controller', [])
+angular.module('starter')
 
 .controller('HelloCtrl', function($scope) {
 

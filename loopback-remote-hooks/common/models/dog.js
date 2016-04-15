@@ -6,7 +6,19 @@ module.exports = function(Dog) {
   		cb(null, dog.location);
   	});    
   }
-	
+	Dog.sendEmailConfirmation = function(to) {
+   
+    Dog.app.models.Email.send({
+      to: to,
+      from: 'you@gmail.com',
+      subject: 'my subject',
+      text: 'my text',
+      html: 'my <em>html</em>'
+    }, function(err, mail) {
+      console.log('email sent!');   
+      
+    });
+  }
 	Dog.remoteMethod(
       'location', 
       {
@@ -16,18 +28,24 @@ module.exports = function(Dog) {
       }
   );
 
-  Dog.beforeRemote ('create', function (context, instance, next) {
-    let birthdate = new Date(context.req.body.birthdate);
+  Dog.beforeRemote ('create', function (context, modelInstance, next) {
+    let birthdate = new Date(context.req.body.birthdate).getTime();    
     if (birthdate == 'Invalid Date') {
-      console.log(next);
       next(new Error(birthdate));
     }
     context.req.body.birthdate = birthdate;
     next();
-  })
+  });
+
+  Dog.afterRemote ('create', function (context, modelInstance, next) {    
+    Dog.app.models.Owner.findOne({where: {id: '22'}}, function(err, owner) { 
+      Dog.sendEmailConfirmation(owner.email);
+      next();
+    });
+  });  
 
   Dog.afterRemoteError ('create', function (context, next) {    
     delete context.error.stack;
     next();
-  })  
+  });  
 };

@@ -2,5 +2,22 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "email": {
+    "name": "email",
+    "defaultForType": "mail",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "SMTP",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "auth": {
+          "user": "alexmuramoto@gmail.com",
+          "pass": "plssgcqgcswthusy"
+        }
+      }
+    ]
   }
 }

@@ -1,22 +1,20 @@
 {
-  "name": "Dog",
+  "name": "Owner",
   "base": "PersistedModel",
-  "idInjection": true,
+  "strict": false,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
-      "type": "string"
-    },
-    "location": {
-      "type": "object",
-      "required": false
-    },
-    "breed": {
+    "id": {
       "type": "string",
-      "id": false,
-      "required": false
+      "id": true,
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],

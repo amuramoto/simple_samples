@@ -14,8 +14,8 @@
         "secure": true,
         "port": 465,
         "auth": {
-          "user": "alexmuramoto@gmail.com",
-          "pass": "plssgcqgcswthusy"
+          "user": "email-username",
+          "pass": "email-password"
         }
       }
     ]

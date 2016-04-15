@@ -1,24 +1,24 @@
 'use strict';
 
 module.exports = function(Dog) {
+
 	Dog.location = function(id, cb) {
     Dog.findOne({where: {id: id}}, function(err, dog) { 
   		cb(null, dog.location);
   	});    
   }
-	Dog.sendEmailConfirmation = function(to) {
-   
+
+	Dog.sendEmailConfirmation = function(ownerEmail) { 
     Dog.app.models.Email.send({
-      to: to,
-      from: 'you@gmail.com',
-      subject: 'my subject',
-      text: 'my text',
-      html: 'my <em>html</em>'
+      to: ownerEmail,
+      from: 'confirmation@dogsarethebest.com',
+      subject: 'So Success! Much Dog!',      
+      html: 'OMG. Your dog is so awesome. OMG.'
     }, function(err, mail) {
-      console.log('email sent!');   
-      
+      console.log('email sent');         
     });
   }
+
 	Dog.remoteMethod(
       'location', 
       {
@@ -38,7 +38,8 @@ module.exports = function(Dog) {
   });
 
   Dog.afterRemote ('create', function (context, modelInstance, next) {    
-    Dog.app.models.Owner.findOne({where: {id: '22'}}, function(err, owner) { 
+    let ownerId = context.result.ownerId;
+    Dog.app.models.Owner.findOne({where: {id: ownerId}}, function(err, owner) { 
       Dog.sendEmailConfirmation(owner.email);
       next();
     });

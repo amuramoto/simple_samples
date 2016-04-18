@@ -2,35 +2,20 @@
 
 module.exports = function(Dog) {
 
-	Dog.location = function(id, cb) {
-    Dog.findOne({where: {id: id}}, function(err, dog) { 
-  		cb(null, dog.location);
-  	});    
-  }
-
 	Dog.sendEmailConfirmation = function(ownerEmail) { 
     Dog.app.models.Email.send({
       to: ownerEmail,
       from: 'confirmation@dogsarethebest.com',
       subject: 'So Success! Much Dog!',      
-      html: 'OMG. Your dog is so awesome. OMG.'
+      html: 'OMG. Your dog is awesome. OMG.'
     }, function(err, mail) {
-      console.log('email sent');         
+      console.log('confirmation email sent');         
     });
   }
 
-	Dog.remoteMethod(
-      'location', 
-      {
-        accepts: {arg: 'id', type: 'number', required: true},
-        http: {path: '/:id/location', verb: 'get'},
-        returns: {arg: 'location', type: 'Object'}
-      }
-  );
-
   Dog.beforeRemote ('create', function (context, modelInstance, next) {
     let birthdate = new Date(context.req.body.birthdate).getTime();    
-    if (birthdate == 'Invalid Date') {
+    if (isNaN(birthdate)) {
       next(new Error(birthdate));
     }
     context.req.body.birthdate = birthdate;
@@ -46,6 +31,7 @@ module.exports = function(Dog) {
   });  
 
   Dog.afterRemoteError ('create', function (context, next) {    
+    context.error.message = 'Invalid birthdate format';
     delete context.error.stack;
     next();
   });  

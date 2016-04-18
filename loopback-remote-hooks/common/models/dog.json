@@ -16,7 +16,7 @@
     "breed": {
       "type": "string",
       "id": false,
-      "required": false
+      "required": true
     }
   },
   "validations": [],

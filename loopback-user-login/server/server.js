@@ -1,7 +1,10 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
-
+var bodyParser = require('body-parser');
 var app = module.exports = loopback();
+
+app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.start = function() {
   // start the web server

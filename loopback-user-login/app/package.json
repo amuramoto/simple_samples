@@ -1,15 +1,11 @@
 {
-  "name": "angular2-quickstart",
+  "name": "loopback-login",
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "docker-build": "docker build -t ng2-quickstart .",
-    "docker": "npm run docker-build && docker run -it --rm -p 3000:3000 -p 3001:3001 ng2-quickstart",
-    "e2e": "tsc && concurrently \"http-server\" \"protractor protractor.config.js\"",
     "lite": "lite-server",
     "postinstall": "typings install",
-    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
@@ -25,7 +21,6 @@
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "zone.js": "^0.6.12",
-
     "a2-in-memory-web-api": "^0.1.16",
     "bootstrap": "^3.3.6"
   },

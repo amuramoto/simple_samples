@@ -22,8 +22,7 @@ System.register(['angular2/core', './loopback-login/loopback-login.component'], 
             }],
         execute: function() {
             AppComponent = (function () {
-                function AppComponent(_lbLoginService) {
-                    this._lbLoginService = _lbLoginService;
+                function AppComponent() {
                 }
                 AppComponent = __decorate([
                     core_1.Component({
@@ -31,7 +30,7 @@ System.register(['angular2/core', './loopback-login/loopback-login.component'], 
                         template: '<loopback-login></loopback-login>',
                         directives: [loopback_login_component_1.LBLoginComponent]
                     }), 
-                    __metadata('design:paramtypes', [Object])
+                    __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             }());

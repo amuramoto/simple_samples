@@ -8,7 +8,7 @@ import { LBLoginComponent } from './loopback-login/loopback-login.component';
 })
 export class AppComponent { 
 
-	constructor(private _lbLoginService: LBLoginService) {
+	constructor() {
 
 	}
 

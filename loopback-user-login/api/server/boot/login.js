@@ -10,16 +10,17 @@ module.exports = function (app) {
 		}
 		UserModel.login(userCredentials, 'user', function (err, result) {			
 			if (err) {
-				// Log.error(err);
+				Log.error(err);
+				console.log(err);
 				res.status(401).json({"error": "login failed"});
 				return;
 			}
 
-			// Log.info({
-			// 	"username": userCredentials.username,
-			// 	"timestamp": new Date.getTime(),
-			// 	"action": "login"
-			// });
+			Log.info({
+				"username": userCredentials.username,
+				"timestamp": new Date.getTime(),
+				"action": "login"
+			});
 
 			const access_token = result.id;
 			const ttl = result.ttl;
@@ -30,7 +31,7 @@ module.exports = function (app) {
 		});
 	});
 
-	app.get('/logout', function (req, res, next) {
+	app.post('/logout', function (req, res, next) {
 		const access_token = req.query.access_token;
 		if (!access_token) {
 			res.status(400).json({"error": "access token required"});
@@ -38,14 +39,14 @@ module.exports = function (app) {
 		}
 		UserModel.logout(access_token, function (err) {
 			if (err) {
-				// Log.error({
-				// 	"error": err,
-				// 	"timestamp": new Date.getTime()
-				// });
+				Log.error({
+					"error": err,
+					"timestamp": new Date.getTime()
+				});
 				res.status(404).json({"error": "logout failed"});
 				return;
 			}
-			res.status(204);
+			res.send();
 		});		
 	});
 }

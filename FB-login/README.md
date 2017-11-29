@@ -29,3 +29,8 @@ This sample is configured to auth the following scopes:
 - `email`
 
 See the FB docs for a [complete set of scopes](https://developers.facebook.com/docs/facebook-login/permissions).
+
+## Behold!
+
+![logged out](https://github.com/amuramoto/simple_samples/raw/master/FB-login/images/Screen%20Shot%202017-11-28%20at%204.34.29%20PM.png) 
+![logged in](https://github.com/amuramoto/simple_samples/raw/master/FB-login/images/Screen%20Shot%202017-11-28%20at%204.34.09%20PM.png)

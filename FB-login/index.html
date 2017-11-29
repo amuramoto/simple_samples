@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
+    <script>
+      /* SDK INCLUDE */
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+
+      /* SDK INIT
+       * Called once the SDK 
+       */
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1719933678308212',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.10'
+        });
+          
+        FB.AppEvents.logPageView();   
+
+        /* Check if user is already logged in */
+        checkLoginState();
+      };
+
+      function checkLoginState() {
+        /* SDK checks the login status */
+        FB.getLoginStatus(function(response) {          
+          if (response.status === 'connected') {
+            /* Get the token and user info */            
+            handleLogin(response);
+          } else {
+            document.getElementById('login-result').innerHTML = '';
+            console.log('Fail! =(')
+          }
+        });
+      }
+
+      function handleLogin(response) {        
+        /* Parse the token and userID */
+        let access_token = response.authResponse.accessToken;
+        let user_id = response.authResponse.userID;
+        
+        console.log(response.authResponse)
+        console.log('Logged In!')
+        
+        document.getElementById('login-result').innerHTML = '<h3>Access Token</h3>' + access_token + '<h3>User ID</h3>' + user_id;          
+      }
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="login-box">
+        <h2> Click the Button!</h2>
+        <div class="fb-login-button" 
+          data-max-rows="1" 
+          data-size="large" 
+          data-button-type="login_with" 
+          data-show-faces="false" 
+          data-auto-logout-link="true" 
+          data-use-continue-as="true"
+          scope="manage_pages,public_profile,email"
+          onlogin="checkLoginState();"></div>
+        <div id="login-result"></div>
+      </div>      
+    </div>    
+  </body>
+</html>
